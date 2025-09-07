@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paper Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fb;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      border: 1px solid #e0e6ed;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      padding: 2rem;
+      max-width: 900px;
+      margin: 3rem auto;
+      background: #fff;
+    }
+    h2 {
+      color: #0d47a1;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    h5 {
+      color: #118ab2;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    p, li {
+      font-size: 0.95rem;
+      color: #343a40;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    a {
+      color: #118ab2;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .meta {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #495057;
+    }
+    .btn-back {
+      background-color: #0d47a1;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      color: #fff;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+    .btn-back:hover {
+      background-color: #07377a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2><%= paper.title %></h2>
+    
+    <h5>Abstract</h5>
+    <p><%= paper.abstract %></p>
+    
+    <p class="meta"><strong>Authors:</strong> <%= paper.authors.join(", ") %></p>
+    <p class="meta"><strong>Citations:</strong> <%= paper.citation_count %></p>
+    <p class="meta"><strong>Year:</strong> <%= paper.year %></p>
+    <p class="meta"><strong>Venue:</strong> <%= paper.venue %></p>
+    
+    <h5>References</h5>
+
+    <ul> <% paper.references.forEach(ref => { %> <li> <a href="https://openalex.org/<%= ref.replace('https://openalex.org/', '') %>" target="_blank"> <%= ref %> </a> </li> <% }) %> </ul>
+    
+    <p class="meta"><strong>DOI:</strong> 
+      <% if(paper.doi !== "N/A"){ %>
+        <a href="<%= paper.doi %>" target="_blank"><%= paper.doi %></a>
+      <% } else { %> N/A <% } %>
+    </p>
+    
+    <p class="meta"><strong>PDF:</strong> 
+      <% if(paper.pdf_url !== "N/A"){ %>
+        <a href="<%= paper.pdf_url %>" target="_blank">Download PDF</a>
+      <% } else { %> N/A <% } %>
+    </p>
+
+    <div class="mt-4">
+      <a href="/api/search" class="btn-back">⬅ Back</a>
+    </div>
+  </div>
+
+</body>
+</html>
